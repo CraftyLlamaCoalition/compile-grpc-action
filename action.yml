@@ -22,6 +22,7 @@ runs:
 
     - name: Move compiled gRPC
       run: cp generated/${{ inputs.language }}/* ${{ inputs.out_repo }}
+      shell: bash
       
     - name: Commit and push changes
       run: |
@@ -43,5 +44,6 @@ runs:
         cd ../
       env: 
          GITHUB_TOKEN: ${{ inputs.token }}
+      shell: bash
 
       
