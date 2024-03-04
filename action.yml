@@ -18,6 +18,7 @@ runs:
       with:
         owner: CraftyLlamaCoalition
         repository: ${{ inputs.our_repo }}
+        access-token: ${{ inputs.token }}
         branch: main
 
     - name: Move compiled gRPC
