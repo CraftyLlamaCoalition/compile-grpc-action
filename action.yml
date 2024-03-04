@@ -28,12 +28,6 @@ runs:
     - name: Commit and push changes
       run: |
         cd ${{ inputs.out_repo }}
-        # Check for uncommitted changes
-        if git diff --quiet; then
-            echo "No uncommitted changes."
-            cd ../
-            return 0
-        fi
         git config --global user.email "craftyllama.ai@gmail.com"
         git config --global user.name "That Crafty Llama"
         git add .
