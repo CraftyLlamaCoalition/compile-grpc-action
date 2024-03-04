@@ -1,0 +1,48 @@
+name: 'Compile gRPC'
+description: 'Compile gRPC for a given language'
+inputs:
+  language:  # id of input
+    description: 'Programming language'
+    required: true
+  out_repo: 
+    description: 'Repo to deploy to'
+    required: true
+  token:
+    description: 'Token to allow pushing changes'
+    required: true
+  
+runs:
+  using: "composite"
+  steps:
+    - uses: whyakari/github-repo-action@v3.1
+      with:
+        owner: CraftyLlamaCoalition
+        repository: ${{ inputs.our_repo }}
+        access-token: "${{ secrets.GITHUB_TOKEN }}"
+        branch: main
+
+    - name: Move compiled gRPC
+      run: cp generated/${{ inputs.language }}/* ${{ inputs.out_repo }}
+      
+    - name: Commit and push changes
+      run: |
+        cd ${{ inputs.out_repo }}
+        # Check for uncommitted changes
+        if git diff --quiet; then
+            echo "No uncommitted changes."
+            cd ../
+            return 0
+        fi
+        git config --global user.email "craftyllama.ai@gmail.com"
+        git config --global user.name "That Crafty Llama"
+        git add .
+        git remote set-url origin https://${{ secrets.ORG_PAT_LARSON }}@github.com/CraftyLlamaCoalition/${{ inputs.out_repo }}.git
+        git config --list
+        pwd
+        git commit -m "Compile protobuf files"
+        git push origin main # Replace branch-name with the desired branch
+        cd ../
+      env: 
+         GITHUB_TOKEN: ${{ inputs.token }}
+
+      
