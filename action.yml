@@ -17,7 +17,7 @@ runs:
     - uses: whyakari/github-repo-action@v3.1
       with:
         owner: CraftyLlamaCoalition
-        repository: ${{ inputs.our_repo }}
+        repository: ${{ inputs.out_repo }}
         access-token: ${{ inputs.token }}
         branch: main
 
