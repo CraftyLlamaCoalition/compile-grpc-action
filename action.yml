@@ -18,7 +18,6 @@ runs:
       with:
         owner: CraftyLlamaCoalition
         repository: ${{ inputs.our_repo }}
-        access-token: "${{ secrets.GITHUB_TOKEN }}"
         branch: main
 
     - name: Move compiled gRPC
@@ -36,7 +35,7 @@ runs:
         git config --global user.email "craftyllama.ai@gmail.com"
         git config --global user.name "That Crafty Llama"
         git add .
-        git remote set-url origin https://${{ secrets.ORG_PAT_LARSON }}@github.com/CraftyLlamaCoalition/${{ inputs.out_repo }}.git
+        git remote set-url origin https://${{ inputs.token }}@github.com/CraftyLlamaCoalition/${{ inputs.out_repo }}.git
         git config --list
         pwd
         git commit -m "Compile protobuf files"
