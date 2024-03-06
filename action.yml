@@ -20,6 +20,10 @@ runs:
         repository: ${{ inputs.out_repo }}
         access-token: ${{ inputs.token }}
         branch: main
+        
+    - name: Remove Old Code
+      run: rm -rf ${{ inputs.out_repo }}/*
+      shell: bash
 
     - name: Move compiled gRPC
       run: cp generated/${{ inputs.language }}/* ${{ inputs.out_repo }}
